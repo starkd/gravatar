@@ -36,7 +36,7 @@ class Gravatar
      * @param array  $params 
      * @return string 
      */
-    public static function url($email, $params = NULL){
+    public static function url($email, $params = array('default'=>'mm')){
         
         return sprintf('%s.gravatar.com/avatar/%s?%s',
                         self::url_prefix(),
@@ -69,14 +69,13 @@ class Gravatar
      */
 
     private static function params($params){
-        // params are optional, if not supplied, just bail
         if (!is_array($params)) return;
         
         $valid = array();
         foreach ($params as $key => $value) {
             $valid[substr($key,0,1)] = self::validate($key,$value);
         }
-        return '?' . http_build_query($valid);
+        return http_build_query($valid);
     }
     
     private static function validate($key,$value){
@@ -88,7 +87,7 @@ class Gravatar
             return (in_array($value, array('g','pg','r','x'))) ? $value : 'g';
         }
         
-        if ($key == 'image') {
+        if ($key == 'default') {
             return (in_array($value,array('404','mm','identicon','monsterid','wavatar','retro'))) ? $value : 'mm';
         }
     }

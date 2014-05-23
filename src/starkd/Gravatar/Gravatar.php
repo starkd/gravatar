@@ -1,4 +1,4 @@
-<?php namespace starkd\gravatar; 
+<?php namespace starkd\Gravatar; 
 /**
  * 
  * @package php-gravatar
@@ -46,7 +46,7 @@ class Gravatar
     }
         private static function url_prefix(){
             //return ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://secure': 'http://www');
-            return '://www';
+            return '//www';
         }
 
         /**
@@ -74,7 +74,7 @@ class Gravatar
         
         $valid = array();
         foreach ($params as $key => $value) {
-            $valid[substr($key,0,1)] => self::validate($key,$value);
+            $valid[substr($key,0,1)] = self::validate($key,$value);
         }
         return '?' . http_build_query($valid);
     }

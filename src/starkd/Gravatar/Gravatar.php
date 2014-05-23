@@ -1,4 +1,4 @@
-<?php 
+<?php namespace starkd\gravatar; 
 /**
  * 
  * @package php-gravatar
@@ -15,9 +15,17 @@
  *      size - int 1 to 512
  *      rating - like movie ratings
  *      image - one of these: '404','mm','identicon','monsterid','wavatar','retro'
+ *
+ *
+ *  Forked from: https://github.com/muddylemon/gravatar
+ *  
+ *  2014-05-23 - D. Stark:
+ *      - Updating with composer.json 
+ *      - Utilizing :// for URLS so gravatar defaults to the same protocol being called by the page
+ *      - Changed default image from 404 to mm
  * 
  */
-class gravatar 
+class Gravatar 
 {
 
     /**
@@ -37,7 +45,8 @@ class gravatar
                        );
     }
         private static function url_prefix(){
-            return ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://secure': 'http://www');
+            //return ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://secure': 'http://www');
+            return '://www';
         }
 
         /**
@@ -80,7 +89,7 @@ class gravatar
         }
         
         if ($key == 'image') {
-            return (in_array($value,array('404','mm','identicon','monsterid','wavatar','retro'))) ? $value : '404';
+            return (in_array($value,array('404','mm','identicon','monsterid','wavatar','retro'))) ? $value : 'mm';
         }
     }
 }
